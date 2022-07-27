@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { User } from 'src/users/entity/user.entity';
 
 dotenv.config();
 const config: TypeOrmModuleOptions = {
@@ -9,7 +10,7 @@ const config: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [],
+  entities: [User],
   autoLoadEntities: true,
   charset: 'utf8mb4',
   synchronize: false, //첫 시작은 true, 나머지는 계속 false
