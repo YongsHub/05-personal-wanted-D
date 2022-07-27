@@ -1,26 +1,24 @@
-import { Token } from 'src/auth/entity/token.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Token {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  email!: string;
+  token!: string;
 
   @Column()
-  password!: string;
+  expiredAt: Date;
 
   @CreateDateColumn()
   createdAt: Date;
 
-  @OneToOne(() => Token, { eager: true })
-  token: Token;
+  @Column()
+  updatedAt: Date;
 }
