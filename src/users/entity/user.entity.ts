@@ -1,4 +1,4 @@
-import { Token } from 'src/auth/entity/token.entity';
+import { Token } from '../../auth/entity/token.entity';
 import {
   Column,
   CreateDateColumn,
