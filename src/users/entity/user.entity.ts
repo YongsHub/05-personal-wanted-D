@@ -15,7 +15,7 @@ export class User {
   id: number;
 
   @Column()
-  email!: string;
+  email: string;
 
   @Column()
   password!: string;
@@ -23,6 +23,6 @@ export class User {
   @CreateDateColumn()
   createdAt: Date;
 
-  @OneToOne(() => Token, { eager: true })
+  @OneToOne(() => Token, { lazy: true })
   token: Token;
 }
