@@ -7,7 +7,12 @@ import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import * as ormConfig from '../ormConfig';
 @Module({
-  imports: [TypeOrmModule.forRoot(ormConfig), AuthModule, UsersModule, PostsModule],
+  imports: [
+    TypeOrmModule.forRoot(ormConfig),
+    AuthModule,
+    UsersModule,
+    PostsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
