@@ -8,7 +8,9 @@ import { Token } from './entity/token.entity';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forFeature([Token]),

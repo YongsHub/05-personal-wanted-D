@@ -10,6 +10,10 @@ import { HashTag } from './hashtag.entity';
 
 @Entity()
 export class Post {
+  constructor(title: string, content: string) {
+    this.title = title;
+    this.content = content;
+  }
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,10 +26,10 @@ export class Post {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
+  @Column({ default: 0 })
   likeCount: number;
 
-  @Column()
+  @Column({ default: 0 })
   visitedCount: number;
 
   @ManyToMany(() => HashTag)
