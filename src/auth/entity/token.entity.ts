@@ -3,8 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Entity()
 export class Token {
   constructor(token: string) {
@@ -16,12 +19,9 @@ export class Token {
   @Column()
   token!: string;
 
-  @Column()
-  expiredAt: Date;
-
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
+  @UpdateDateColumn()
   updatedAt: Date;
 }

@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Post,
   Req,
   UseFilters,
@@ -24,6 +25,7 @@ export class AuthController {
     return this.authService.signup(email, password);
   }
 
+  @HttpCode(200)
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
   async login(@Req() req) {

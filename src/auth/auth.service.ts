@@ -19,7 +19,6 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    console.log('이메일', email, password);
     const user = await this.usersRepository.findOne({
       where: { email: email },
     });
@@ -32,22 +31,22 @@ export class AuthService {
 
   async login(user: User) {
     const payload = { useremail: user.email, sub: user.id };
+    const result = await this.usersRepository.findOne({
+      where: { email: user.email },
+    });
+    let token = await result.token;
     const access_token = this.jwtService.sign(payload);
-
-    // if (!user.token) {
-    //   user.token = new Token(access_token);
-    // } else {
-    //   const token = await this.tokenRepository.findOne({
-    //     where: { token: user.token.token },
-    //   });
-    //   token.token = access_token;
-    //   await this.tokenRepository.save(token);
-    // }
-    // // 유저의 토큰 Database에 저장
-    // await this.usersRepository.save(user);
-    return {
-      access_token: access_token,
-    };
+    if (!token) {
+      token = new Token(access_token);
+      await this.tokenRepository.save(token);
+      result.token = Promise.resolve(token);
+    } else {
+      token.token = access_token;
+      await this.tokenRepository.save(token);
+    }
+    // 유저의 토큰 Database에 저장
+    await this.usersRepository.save(result);
+    return token;
   }
 
   async signup(email: string, password: string) {

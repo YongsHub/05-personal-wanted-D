@@ -2,6 +2,7 @@ import { User } from '../../users/entity/user.entity';
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -35,9 +36,12 @@ export class Post {
   visitedCount: number;
 
   @ManyToOne(() => User, (user) => user.posts)
-  user: User;
+  user: Promise<User>;
 
-  @ManyToMany(() => HashTag)
+  @ManyToMany(() => HashTag, { cascade: true })
   @JoinTable()
   hashtags: HashTag[];
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }
