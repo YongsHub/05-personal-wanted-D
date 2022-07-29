@@ -1,9 +1,11 @@
+import { User } from '../../users/entity/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { HashTag } from './hashtag.entity';
@@ -31,6 +33,9 @@ export class Post {
 
   @Column({ default: 0 })
   visitedCount: number;
+
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 
   @ManyToMany(() => HashTag)
   @JoinTable()
