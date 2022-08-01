@@ -3,10 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
+import { Post } from '../../posts/entity/post.entity';
 
 @Entity()
 @Unique(['email'])
@@ -24,5 +27,9 @@ export class User {
   createdAt: Date;
 
   @OneToOne(() => Token, { lazy: true })
-  token: Token;
+  @JoinColumn()
+  token: Promise<Token>;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }
